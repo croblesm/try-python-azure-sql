@@ -14,3 +14,18 @@ unzip sqlpackage.zip -d /opt/sqlpackage
 rm sqlpackage.zip
 chmod a+x /opt/sqlpackage/sqlpackage
 echo "Sqlpackage installed."
+
+echo "Installing dependencies for SQL Server driver for Python..."
+sudo apt-get install -y unixodbc-dev
+echo "Dependencies installed."
+
+echo "Installing ODBC driver for SQL Server..."
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+sudo curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list -o /etc/apt/sources.list.d/mssql-release.list
+sudo apt-get update
+sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17
+echo "ODBC driver for SQL Server installed."
+
+echo "Installing SQL Server driver for Python..."
+pip install pyodbc
+echo "SQL Server driver for Python installed."
